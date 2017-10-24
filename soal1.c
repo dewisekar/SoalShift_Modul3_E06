@@ -8,7 +8,7 @@
 
 pthread_t seller[3];
 pthread_t buyer[3];
-int 
+int stock_senjata[10];
 
 void* menu_jual(void *arg){
 	unsigned long i=0;
@@ -17,7 +17,41 @@ void* menu_jual(void *arg){
 	if (pthread_equal(id,seller[1]))
 	{
 		/* code */
-		printf("%s\n", );
+		if (stock_senjata[1]!=0)
+		{
+			/* code */
+			printf("MP4A1 = %d\n",stock_senjata[1]);
+		}
+		if (stock_senjata[2]!=0)
+		{
+			/* code */
+			printf("PM2-V1 = %d\n",stock_senjata[2]);
+		}
+		if (stock_senjata[3]!=0)
+		{
+			/* code */
+			printf("SPR-3 = %d\n", stock_senjata[3]);
+		}
+		if (stock_senjata[4]!=0)
+		{
+			/* code */
+			printf("SS2-V5 = %d\n", stock_senjata[4]);
+		}
+		if (stock_senjata[5]!=0)
+		{
+			/* code */
+			printf("SPG1-V3 = %d\n",stock_senjata[5]);
+		}
+		if (stock_senjata[6]!=0)
+		{
+			/* code */
+			printf("MINE = %d\n",stock_senjata[6]);
+		}
+
+	}
+	else if (pthread_equal(id,seller[2]))
+	{
+		/* code */
 
 	}
 }
@@ -29,8 +63,41 @@ void* menu_beli(void *arg){
 	if (pthread_equal(id,buyer[1]))
 	{
 		/* code */
-		printf("%s %d\n", );
+		if (stock_senjata[1]!=0)
+		{
+			/* code */
+			printf("MP4A1 = %d\n",stock_senjata[1]);
+		}
+		if (stock_senjata[2]!=0)
+		{
+			/* code */
+			printf("PM2-V1 = %d\n",stock_senjata[2]);
+		}
+		if (stock_senjata[3]!=0)
+		{
+			/* code */
+			printf("SPR-3 = %d\n", stock_senjata[3]);
+		}
+		if (stock_senjata[4]!=0)
+		{
+			/* code */
+			printf("SS2-V5 = %d\n", stock_senjata[4]);
+		}
+		if (stock_senjata[5]!=0)
+		{
+			/* code */
+			printf("SPG1-V3 = %d\n",stock_senjata[5]);
+		}
+		if (stock_senjata[6]!=0)
+		{
+			/* code */
+			printf("MINE = %d\n",stock_senjata[6]);
+		}
 
+	}
+	else if (pthread_equal(id,buyer[2]))
+	{
+		/* code */
 	}
 }
 
@@ -60,7 +127,7 @@ int main(void)
 			err=pthread_create(&(seller[n]),NULL,&menu_jual,NULL);	
 		}
 		else{
-			printf("error\n");
+			printf("error try again\n");
 		}
 	}
 	return 0;
