@@ -62,6 +62,9 @@ void* menu_jual(void *arg){
 void* menu_beli(void *arg){
 	unsigned long i=0;
 	pthread_t id=pthread_self();
+	char senjata[8];
+	int jumlah_senjata;
+
 
 	if (pthread_equal(id,buyer[1]))
 	{
@@ -77,6 +80,15 @@ void* menu_beli(void *arg){
 	else if (pthread_equal(id,buyer[2]))
 	{
 		/* code */
+		scanf("%s %d", senjata, &jumlah_senjata);
+
+		if (strcmp(senjata,"MP4A1")==0)
+		{
+			/* code */
+			stock_senjata[1]+=jumlah_senjata;
+
+		}
+
 	}
 	else{
 		printf("error\n");
