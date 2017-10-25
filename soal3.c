@@ -7,12 +7,11 @@
 #include <string.h>
 pthread_t timer;
 int status_lohan=100,status_kepiting=100;
-pthread_t feeding[2];
+pthread_t feeding[3];
 int status=0;
-
+int i;
 void* stopwatch(void *arg){
-	status++;
-	for (int i = 1; i <= 100000; i++)
+	for (i = 1; i <= 100000; i++)
 	{	
         sleep(1);
 		if (i%10==0)
@@ -35,22 +34,28 @@ void* beri_makan(void *arg){
 		status_kepiting+=10;
 		printf("status_kepiting bertambah 10\n");
 	}
+	else if (pthread_equal(id,feeding[3]))
+	{
+		printf("\n\nsudah %d detik sejak permainan dimulai\nkeadaan lohan: %d\nkeadaan kepiting: %d\n", i, status_lohan, status_kepiting);
+	}
+	status++;
 }
 
 int main(){
 	int menu;
 	pthread_create(&(timer),NULL,&stopwatch,NULL);
-	while(status==0){};
 	while(1){
-		printf("MENU\n1.beri makan lohan\n2.beri makan kepiting\n(1/2): ");
+		printf("\n\nMENU\n1.beri makan lohan\n2.beri makan kepiting\n3.cek waktu dan keadaan lohan/kepiting\n(1/2/3): ");
 		scanf("%d", &menu);
 		pthread_create(&(feeding[menu]),NULL,&beri_makan,NULL);
+		
+		while(status==0){};
+		status=0;
 
-		if (status_lohan==0||status_kepiting==0||status_lohan>100||status_kepiting>100)
+
+		if (status_lohan<=0||status_kepiting<=0||status_lohan>100||status_kepiting>100)
 		{
-			break;
+			return 0;
 		}
 	}
-
-	return 0;
 }
