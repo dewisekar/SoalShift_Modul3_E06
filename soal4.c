@@ -12,8 +12,8 @@ void* faktorial(void *arg)
 {
     int hasil=1;
     for (int i=in; i>=1; i--)
-    	hasil=hasil*1;
-    printf("Faktorial %d: %d\n", in, hasil);
+    	hasil=hasil*i;
+    printf("Hasil %d! = %d\n", in, hasil);
     return NULL;
     
 }
@@ -31,8 +31,9 @@ int main(int argc, char** argv)
 			in=in*10;
 			in+=(argv[i+1][j]-'0');
 		}
-		printf("%d\n", in);
+		//printf("%d\n", in);
 		pthread_create(&(tid[i]), NULL, &faktorial, NULL);
+		pthread_join(tid[i],NULL);
 	}
 	
 }
