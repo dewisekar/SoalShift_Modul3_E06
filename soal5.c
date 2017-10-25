@@ -5,25 +5,19 @@
 #include<unistd.h>
 #include<stdlib.h>
 
-FILE * finput;
-
-
-
-
-
 void* readandcount (void *arg){
     char storage[1000];
     char kata[100];
     int jumlah=0;
-
+    FILE *finput;
     strcpy(kata,arg);
     finput = fopen("/home/dewisekar/TUGAS_SISOP/modul3/SoalShift_Modul3_E06/Novel.txt", "r");
     if (finput==NULL) printf("File tidak ada!\n");
 
-    while(fscanf(finput,"%s",storage))
+    while(fscanf(finput,"%s",storage)==1)
     {
         if(strstr(storage,kata)!=NULL)
-           { jumlah++;}
+           { jumlah++;} 
     }
     printf("%s: %d\n", kata,jumlah);
     return NULL;  
@@ -48,4 +42,3 @@ int main(int argc, char** argv) {
  
 }
    
-    
