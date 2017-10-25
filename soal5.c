@@ -4,42 +4,30 @@
 #include<stdlib.h>
 #include<unistd.h>
 
-File *finput;
-pthread_t tid[2]
+FILE * finput;
+pthread_t tid[1000];
 
-char str1[10],str2[10];
-int jumstr1=0, jumstr2=0;
 int status;
-int panjang;
 
-void *readandcount (void *arg){
 
-	if(status==0)
+
+/*void *readandcount (void *arg){
+	int jumlah=0;
+	finput = fopen("home/dewisekar/TUGAS_SISOP/modul3/SoalShift_Modul3_E06/Novel.txt", "r");
+	if (finput==NULL) printf("File tidak ada!\n");
+	while(fgets(storage,strlen(argv[i]),finput)!=NULL)
 	{
-		panjang=strlen(str1);
-
+		if(strcmp(argv[i],storage)==0)
+			jumlah++;
 	}
+	//printf("%s: %d\n", argv[i],jumlah);
 
-}
-
-int main(){
-
-	char str1[10],str2[10];
-	scanf("%s %s", &str1, &str2);
-	int i=0;
-    int err;
-    while(i<2)//looping membuat thread 2x
-    {
-        err=pthread_create(&(tid[i]),NULL,&playandcount,NULL);//membuat thread
-        if(err!=0)//cek error
-        {
-            printf("\n can't create thread : [%s]",strerror(err));
-        }
-        else
-        {
-            printf("\n create thread success");
-        }
-        i++;
+*/
+int main(int argc, char** argv) {
+    for (int i = 0; i < argc; i++) {
+        printf("%s\n", argv[i]);
+        int panjang=strlen(argv[i]);
+        printf("%d\n", panjang);
     }
-
 }
+ //  fclose(finput);
