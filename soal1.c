@@ -9,10 +9,13 @@
 pthread_t seller[3];
 pthread_t buyer[3];
 int stock_senjata[10];
+int status=0;
 
 void* menu_jual(void *arg){
 	unsigned long i=0;
 	pthread_t id=pthread_self();
+	char senjata[8];
+	int jumlah_senjata;
 
 	if (pthread_equal(id,seller[1]))
 	{
@@ -52,11 +55,56 @@ void* menu_jual(void *arg){
 	else if (pthread_equal(id,seller[2]))
 	{
 		/* code */
+		printf("masukan jumlah senjata\n");
+		scanf("%s %d", senjata, &jumlah_senjata);
 
+		if (strcmp(senjata,"MP4A1")==0)
+		{
+			/* code */
+			stock_senjata[1]+=jumlah_senjata;
+
+		}
+
+		else if (strcmp(senjata,"PM2-V1")==0)
+		{
+			/* code */
+			stock_senjata[2]+=jumlah_senjata;
+
+		}
+
+		else if (strcmp(senjata,"SPR-3")==0)
+		{
+			/* code */
+			stock_senjata[3]+=jumlah_senjata;
+
+		}
+
+		else if (strcmp(senjata,"SS2-V5")==0)
+		{
+			/* code */
+			stock_senjata[4]+=jumlah_senjata;
+
+		}
+
+		else if (strcmp(senjata,"SPG1-V3")==0)
+		{
+			/* code */
+			stock_senjata[5]+=jumlah_senjata;
+
+		}
+
+		else if (strcmp(senjata,"MINE")==0)
+		{
+			/* code */
+			stock_senjata[6]+=jumlah_senjata;
+
+		}
 	}
 	else{
 		printf("error\n");
 	}
+
+	status++;
 }
 
 void* menu_beli(void *arg){
@@ -85,7 +133,72 @@ void* menu_beli(void *arg){
 		if (strcmp(senjata,"MP4A1")==0)
 		{
 			/* code */
-			stock_senjata[1]+=jumlah_senjata;
+			if (stock_senjata[1]<jumlah_senjata)
+			{
+				/* code */
+				printf("barang di stock tidak cukup\n");
+			}
+			stock_senjata[1]-=jumlah_senjata;
+
+		}
+
+		else if (strcmp(senjata,"PM2-V1")==0)
+		{
+			/* code */
+			if (stock_senjata[2]<jumlah_senjata)
+			{
+				/* code */
+				printf("barang di stock tidak cukup\n");
+			}
+			stock_senjata[2]-=jumlah_senjata;
+
+		}
+
+		else if (strcmp(senjata,"SPR-3")==0)
+		{
+			/* code */
+			if (stock_senjata[3]<jumlah_senjata)
+			{
+				/* code */
+				printf("barang di stock tidak cukup\n");
+			}
+			stock_senjata[3]-=jumlah_senjata;
+
+		}
+
+		else if (strcmp(senjata,"SS2-V5")==0)
+		{
+			/* code */
+			if (stock_senjata[4]<jumlah_senjata)
+			{
+				/* code */
+				printf("barang di stock tidak cukup\n");
+			}
+			stock_senjata[4]-=jumlah_senjata;
+
+		}
+
+		else if (strcmp(senjata,"SPG1-V3")==0)
+		{
+			/* code */
+			if (stock_senjata[5]<jumlah_senjata)
+			{
+				/* code */
+				printf("barang di stock tidak cukup\n");
+			}
+			stock_senjata[5]-=jumlah_senjata;
+
+		}
+
+		else if (strcmp(senjata,"MINE")==0)
+		{
+			/* code */
+			if (stock_senjata[6]<jumlah_senjata)
+			{
+				/* code */
+				printf("barang di stock tidak cukup\n");
+			}
+			stock_senjata[6]-=jumlah_senjata;
 
 		}
 
@@ -93,6 +206,8 @@ void* menu_beli(void *arg){
 	else{
 		printf("error\n");
 	}
+
+	status++;
 }
 
 
@@ -102,7 +217,7 @@ int main(void)
 	int err, n;
 
 	scanf("%s", user);
-	while(strcmp(user,"logout")==0){
+	while(1){
 		if (strcmp(user,"pembeli")==0)
 		{
 			/* code */
@@ -110,7 +225,7 @@ int main(void)
 			printf("masukan input(1/2): ");
 
 			scanf("%d", &n);
-			err=pthread_create(&(buyer[n]),NULL,&menu_beli,NULL);
+			pthread_create(&(buyer[n]),NULL,&menu_beli,NULL);
 		}
 		else if (strcmp(user,"penjual")==0)
 		{	
@@ -118,11 +233,21 @@ int main(void)
 			printf("masukan input(1/2): ");
 
 			scanf("%d", &n);
-			err=pthread_create(&(seller[n]),NULL,&menu_jual,NULL);	
+			pthread_create(&(seller[n]),NULL,&menu_jual,NULL);	
+		}
+		else if (strcmp(user,"logout")==0)
+		{
+			/* code */
+			printf("thank you\n");
+			return 0;
 		}
 		else{
 			printf("error try again\n");
 		}
+
+		while(status==0){};
+		scanf("%s", user);
+		status=0;
 	}
 	return 0;
 }
