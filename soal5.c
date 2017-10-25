@@ -18,7 +18,7 @@ void *readandcount (void *arg){
 	if (finput==NULL) printf("File tidak ada!\n");
 	while(fgets(storage,panjang+1,finput)!=NULL)
 	{
-        printf("%s\n", kata);
+        printf("%s\n", );
 		if(strcmp(kata,storage)==0)
 			jumlah++;
 	}
