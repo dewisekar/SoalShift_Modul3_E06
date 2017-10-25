@@ -4,42 +4,44 @@
 #include<stdlib.h>
 #include<unistd.h>
 
-File *finput;
-pthread_t tid[2]
+FILE * finput;
+pthread_t tid[1000];
 
-char str1[10],str2[10];
-int jumstr1=0, jumstr2=0;
-int status;
 int panjang;
+char kata[100];
+
 
 void *readandcount (void *arg){
-
-	if(status==0)
+	int jumlah=0;
+	finput = fopen("home/dewisekar/TUGAS_SISOP/modul3/SoalShift_Modul3_E06/Novel.txt", "r");
+    char storage[panjang+1];
+	if (finput==NULL) printf("File tidak ada!\n");
+	while(fgets(storage,panjang+1,finput)!=NULL)
 	{
-		panjang=strlen(str1);
-
+        printf("%s\n", );
+		if(strcmp(kata,storage)==0)
+			jumlah++;
 	}
-
+	printf("%s: %d\n", kata,jumlah);
+    fclose(finput);
 }
 
-int main(){
 
-	char str1[10],str2[10];
-	scanf("%s %s", &str1, &str2);
-	int i=0;
+int main(int argc, char** argv) {
     int err;
-    while(i<2)//looping membuat thread 2x
-    {
-        err=pthread_create(&(tid[i]),NULL,&playandcount,NULL);//membuat thread
+    for (int i = 0; i < argc-1; i++) {
+        printf("%s\n", argv[i+1]);
+        panjang=strlen(argv[i+1]);
+        printf("%d\n", panjang);
+        for(int j=0; j<panjang; j++)
+            kata[j]=argv[i][j];
+        //printf("%s\n", kata);
+        err=pthread_create(&(tid[i]),NULL,&readandcount,NULL);//membuat thread
         if(err!=0)//cek error
         {
             printf("\n can't create thread : [%s]",strerror(err));
         }
-        else
-        {
-            printf("\n create thread success");
-        }
-        i++;
     }
-
+    
 }
+ 
